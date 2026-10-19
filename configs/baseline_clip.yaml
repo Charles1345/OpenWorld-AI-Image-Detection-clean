@@ -1,0 +1,57 @@
+seed: 123
+
+deterministic: true
+# device: cpu
+device: cuda
+
+output:
+  root: "outputs/runs"
+  run_name: null
+
+data:
+  dataset: "commfor_small"
+  batch_size: 32
+  num_workers: 0
+  img_size: 224
+  calibration_fraction: 0.1
+  max_train_samples: null
+  max_eval_samples: null
+  streaming: false
+  shuffle_buffer: 100
+  transforms:
+    use_corruptions: false
+    jpeg_quality: null
+    blur_sigma: null
+    resize_shorter: 256
+    center_crop: true
+
+model:
+  type: "clip_baseline"
+  clip:
+    model_name: "ViT-B-32"
+    pretrained: "openai"
+    freeze: true
+    unfreeze_last_n: null
+  head:
+    hidden_dims: [512, 256]
+    dropout: 0.1
+  dire:
+    enabled: false
+    cache_dir: null
+
+train:
+  epochs: 30 # modified .. original value is 1
+  steps_per_epoch: 100
+  lr: 2e-4
+  weight_decay: 1e-4
+  amp: false
+  grad_accum_steps: 1
+  best_metric: "auroc"
+
+calibration:
+  temperature: true
+  conformal_alpha: 0.05
+  conformal_method: "split"
+
+eval:
+  save_predictions: true

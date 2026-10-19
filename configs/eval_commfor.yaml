@@ -1,0 +1,17 @@
+seed: 123
+deterministic: true
+
+data:
+  dataset: "commfor_small"
+  batch_size: 64
+  num_workers: 0
+  img_size: 224
+  calibration_fraction: 0.1
+  split: "train"
+  max_eval_samples: 5000
+
+eval:
+  save_predictions: true
+
+output:
+  root: "outputs/runs"
